@@ -17,6 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from users.views.authorization import authorization_view, process_authorization_view
+from users.views.profile import show_profile_view
+from users.views.registration import registration_view, process_ragustration_view
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sign_in/', authorization_view),
+    path('sign_up/', registration_view),
+    path('process_authorization/', process_authorization_view),
+    path('profile/', show_profile_view),
+    path('process_registration/', process_ragustration_view),
+    
 ]
