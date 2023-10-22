@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from users.views.authorization import authorization_view, process_authorization_view
-from users.views.profile import show_profile_view
+from profiles.views.profile import show_profile_view
 from users.views.registration import registration_view, process_ragustration_view
 
 
