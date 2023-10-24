@@ -6,19 +6,11 @@
     </head>
     <body>
         <h1 style="font-family: Arial; text-align: center;">Авторизация</h1>
-
-        <form id="authForm" style="width: 300px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px;" action="http://127.0.0.1:8000/process_authorization/" method="post">
-
-            <label style="font-weight: bold;" for="username">Юзернэйм:</label>
-            <input type="text" id="username" name="username" required style="width: 90%; margin: 5px 0; padding: 10px;"><br>
-
-            <label style="font-weight: bold;" for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required style="width: 90%; margin: 5px 0; padding: 10px;"><br>
-
+        <form style="width: 300px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px;" method="post">
+            {% csrf_token %}
+            {{ form }}
             <input type="submit" value="Авторизоваться" style="background-color: #4CAF50; color: white; padding: 10px; width: 100%;">
         </form>
-        {% if message %}
-            <div id="message" style="color: red; text-align: center; margin-top: 20px;">{{ message }}</div>
-        {% endif %}
+        <div id="message" style="color: red; text-align: center; margin-top: 20px;">{{ message }}</div>
     </body>
 </html>
