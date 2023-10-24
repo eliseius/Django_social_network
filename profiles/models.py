@@ -16,6 +16,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=1, choices=[('m', 'men'), ('w', 'women'), ('o', 'other')])
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False)
 
     def __str__(self):
