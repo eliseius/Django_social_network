@@ -1,11 +1,6 @@
 from django import forms
 
 
-class UserAuthorizationForm(forms.Form):
-    username = forms.CharField(min_length=4, max_length=25)
-    password = forms.CharField(min_length=8,  widget=forms.PasswordInput)
-
-
 class UserRegistrationForm(forms.Form):
     username = forms.CharField(min_length=4, max_length=25)
     email = forms.EmailField()
