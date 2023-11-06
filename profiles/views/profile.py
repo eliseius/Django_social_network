@@ -2,28 +2,28 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
 from profiles.forms import ProfileForm
-from profiles.function import create_new_profile, update_profile
-from profiles.models import Profile
+from profiles.function import (create_new_profile, update_profile,
+                               get_profile_user, get_initail_form_values)
 
 
 def show_profile_view(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        email_user = request.user.email
+        username = request.user.username
+        profile = get_profile_user(request)
         if request.method == 'POST':
-            form = ProfileForm(request.POST)
+            form = ProfileForm(request.POST, request.FILES)
             if form.is_valid():
-                user_data = form.cleaned_data
-                profile = Profile.objects.filter(user__email=email_user).first()
+                form.save(commit=False)
                 if profile is None:
-                    create_new_profile(user_data,email_user)
-                    message = 'Профиль создан'
+                    message = create_new_profile(form.cleaned_data, username)
                 else:
-                    update_profile(user_data, profile)
-                    message = 'Профиль обновлен'
+                    message = update_profile(form.cleaned_data, profile)
                 return HttpResponse(message)
         else:
             form = ProfileForm()
+            if profile is not None:
+                initail_values = get_initail_form_values(profile)
+                form = ProfileForm(initail_values)
+            return render(request, 'profile.html', {"form": form, "profile": profile}) 
     else:
         return redirect('http://127.0.0.1:8000/sign_in/')
-    
-    return render(request, 'registration.html', {"form": form,})

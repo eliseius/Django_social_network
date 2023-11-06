@@ -10,3 +10,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('name', 'surname', 'birthday', 'avatar', 'hobbies', 'gender')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
